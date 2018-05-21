@@ -22,7 +22,7 @@ public class PickUpController : MonoBehaviour {
         {
             if(collision.gameObject.tag == "Player")
             {
-                collision.gameObject.GetComponent<AttackController>().pickUpWeapon(items[0]);
+                collision.gameObject.GetComponent<AttackController>().PickUpWeapon(items[0]);
                 GameObject.Destroy(gameObject);
             }
         }

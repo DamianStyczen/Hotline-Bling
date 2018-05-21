@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemyBehavior : MonoBehaviour {
+public class EnemyBehavior : MonoBehaviour {
 
     [SerializeField] float health = 100;
     public EnemyScript enemyScript;

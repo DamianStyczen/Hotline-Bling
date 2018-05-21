@@ -112,7 +112,7 @@ public class SpawnManager : MonoBehaviour {
 
     void spawnAnEnemy()
     {
-        enemy.GetComponent<enemyBehavior>().enemyScript = waves[currentWave].EnemyTypes[UnityEngine.Random.Range(0, waves[currentWave].EnemyTypes.Count)];
+        enemy.GetComponent<EnemyBehavior>().enemyScript = waves[currentWave].EnemyTypes[UnityEngine.Random.Range(0, waves[currentWave].EnemyTypes.Count)];
 
         Instantiate(enemy, spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Count - 1)], new Quaternion(0,0,0,0));
         

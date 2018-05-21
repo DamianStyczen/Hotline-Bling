@@ -27,7 +27,7 @@ public class AttackController : MonoBehaviour {
         }
 	}
 
-    private void performAttack()
+    private void PerformAttack()
     {
         GameObject.Instantiate(meleeHitbox, this.transform);        
     }
@@ -45,18 +45,19 @@ public class AttackController : MonoBehaviour {
             }
             else
             {
-                weaponAttack();
+                WeaponAttack();
             }
         }
 
         
     }
 
-    private void weaponAttack()
+    private void WeaponAttack()
     {
         if(timer > weapon.fireCooldown)
         {
-            shoot();
+            weapon.Shoot(weaponModel);
+            //shoot();
             weaponAmmo -= 1;
             if(weaponAmmo == 0)
             {
@@ -73,7 +74,7 @@ public class AttackController : MonoBehaviour {
     {
         if (timer > meleeCooldown)
         {
-            performAttack();
+            PerformAttack();
             timer = 0;
         }
                
@@ -82,7 +83,7 @@ public class AttackController : MonoBehaviour {
         
     }
 
-    public void pickUpWeapon(Weapon pickUp)
+    public void PickUpWeapon(Weapon pickUp)
     {
         
         weapon = pickUp;
@@ -90,24 +91,5 @@ public class AttackController : MonoBehaviour {
         weaponModel.SetActive(true);
     }
 
-    private void shoot()
-    {
-        RaycastHit2D hit = Physics2D.Raycast(weaponModel.transform.position, -transform.right);
-        if (hit.collider != null)
-        {
-            if (hit.collider.gameObject.tag == "Enemy")
-            {
-                Debug.Log("Enemy hit");
-                hit.collider.gameObject.GetComponent<enemyBehavior>().getDamage(weapon.damage);
-            }
-        }            
-        
-        else
-        {
-            Debug.Log("You missed");
-        }
-
-
-
-    }
+    
 }
