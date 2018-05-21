@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class enemyBehavior : MonoBehaviour {
 
+    [SerializeField] float health = 100;
     public EnemyScript enemyScript;
     [SerializeField] Transform player;
     [SerializeField] float movementSpeed = 2;
@@ -53,7 +54,16 @@ public class enemyBehavior : MonoBehaviour {
         transform.position += newDirection * Time.deltaTime * randomMovementSpeed;
     }
 
-    public void die()
+    public void getDamage(float damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            die();
+        }
+    }
+
+    private void die()
     {
         GameObject.FindWithTag("Respawn").GetComponent<SpawnManager>().enemiesAlive -= 1;
         GameObject.Destroy(this.gameObject);
@@ -73,6 +83,7 @@ public class enemyBehavior : MonoBehaviour {
         {
             gameObject.GetComponent<SpriteRenderer>().color = enemyScript.spriteColor;
             movementSpeed = enemyScript.movementSpeed;
+            health = enemyScript.health;
             transform.localScale = transform.localScale * enemyScript.size;
         }
     }
