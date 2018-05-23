@@ -2,16 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Weapon", menuName = "Weapons/New Weapon")]
-public class Weapon : ScriptableObject {
+public class Pistol : Weapon {
 
-    public float damage = 0;
-    public int ammo = 0;
-    public float fireCooldown = 0.1f;   
-
-    public virtual void Shoot(GameObject startingObject)
+    public void Shoot(GameObject startingObject)
     {
-        Debug.Log("Weapon fired");
         RaycastHit2D hit = Physics2D.Raycast(startingObject.transform.position, -startingObject.transform.right);
         if (hit.collider != null)
         {

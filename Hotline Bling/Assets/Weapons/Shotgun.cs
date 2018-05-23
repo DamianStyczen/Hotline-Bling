@@ -10,12 +10,12 @@ public class Shotgun : Weapon {
     public float spread = 10;
 
 
-    public new void Shoot(GameObject startingObject)
+    public override void Shoot(GameObject startingObject)
     {
-        
-        RaycastHit2D hit = Physics2D.Raycast(startingObject.transform.position, -new Vector3(startingObject.transform.right.x - 10, startingObject.transform.right.y, startingObject.transform.right.y));
+        Debug.Log("Shotgun fired");
+        RaycastHit2D hit = Physics2D.Raycast(startingObject.transform.position, -new Vector3(startingObject.transform.right.x - spread, startingObject.transform.right.y - spread, startingObject.transform.right.y));
+        Debug.DrawRay(startingObject.transform.position, -new Vector3(startingObject.transform.right.x - spread, startingObject.transform.right.y - spread, startingObject.transform.right.y));
 
-        
 
         if (hit.collider != null)
         {
