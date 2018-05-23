@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Weapon", menuName = "New Weapon")]
+[CreateAssetMenu(fileName = "New Weapon", menuName = "Weapons/New Weapon")]
 public class Weapon : ScriptableObject {
 
     public float damage = 0;
