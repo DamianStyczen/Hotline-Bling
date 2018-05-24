@@ -19,6 +19,7 @@ public class EnemyBehavior : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
         player = GameObject.FindWithTag("Player").transform;
         GameObject.FindWithTag("Respawn").GetComponent<SpawnManager>().enemiesAlive += 1;
         applyEnemyScript();
@@ -65,6 +66,12 @@ public class EnemyBehavior : MonoBehaviour {
 
     private void die()
     {
+        if(enemyScript.onDeathEffect != null)
+        {
+            Debug.Log("on death script activated");
+            enemyScript.onDeathEffect.Execute();
+        }
+        
         GameObject.FindWithTag("Respawn").GetComponent<SpawnManager>().enemiesAlive -= 1;
         GameObject.Destroy(this.gameObject);
     }
@@ -73,8 +80,7 @@ public class EnemyBehavior : MonoBehaviour {
     {        
         if (collision.gameObject.tag == "Hitbox")
         {
-            GameObject.FindWithTag("Respawn").GetComponent<SpawnManager>().enemiesAlive -= 1;
-            GameObject.Destroy(this.gameObject);
+            getDamage(100);
         }
     }
     void applyEnemyScript()

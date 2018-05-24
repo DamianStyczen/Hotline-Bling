@@ -57,7 +57,6 @@ public class AttackController : MonoBehaviour {
         if(timer > weapon.fireCooldown)
         {
             weapon.Shoot(weaponModel);
-            //shoot();
             weaponAmmo -= 1;
             if(weaponAmmo == 0)
             {
