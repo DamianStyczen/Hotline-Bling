@@ -42,7 +42,7 @@ public class SpawnManager : MonoBehaviour {
                     
                     stage = stages.startOfWave;
                     timer = 0;
-                    // COOL WAVE TITLE
+                    getText(stage);
                 }
                 break;
 
@@ -66,12 +66,39 @@ public class SpawnManager : MonoBehaviour {
                 {
                     stage = stages.breakBetweenWaves;
                     timer = 0;
-                    // COOL END OF WAVE TITLE
+                    getText(stage);
                 }
                 break;
 
             default:
                 Debug.Log("SpawnManager failed to update.");
+                break;
+        }
+    }
+
+    private void getText(stages stage)
+    {
+        switch (stage)
+        {
+            case stages.breakBetweenWaves:
+                if (waves[currentWave].endOfWaveText == "")
+                {
+                    GameObject.Find("TextController").GetComponent<TextController>().generateText("", "Good job");
+                }
+                else GameObject.Find("TextController").GetComponent<TextController>().generateText("", waves[currentWave-1].endOfWaveText, 60, 40);
+                break;
+            case stages.startOfWave:
+                if(waves[currentWave].startOfWaveText == "")
+                {
+                    GameObject.Find("TextController").GetComponent<TextController>().generateText("Wave " + (currentWave + 1));
+                }
+                else GameObject.Find("TextController").GetComponent<TextController>().generateText("Wave " + (currentWave + 1), waves[currentWave].startOfWaveText, 60, 40);
+                break;
+            case stages.spawningEnemies:
+                break;
+            case stages.awaitEndOfWave:                
+                break;
+            default:
                 break;
         }
     }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class Effect : ScriptableObject {
 
     public int testint = 0;
-	public virtual void Execute()
+	public virtual void Execute(GameObject caller)
     {
 
     }

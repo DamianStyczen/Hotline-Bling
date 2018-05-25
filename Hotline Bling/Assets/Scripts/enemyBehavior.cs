@@ -68,8 +68,8 @@ public class EnemyBehavior : MonoBehaviour {
     {
         if(enemyScript.onDeathEffect != null)
         {
-            Debug.Log("on death script activated");
-            enemyScript.onDeathEffect.Execute();
+            
+            enemyScript.onDeathEffect.Execute(gameObject);
         }
         
         GameObject.FindWithTag("Respawn").GetComponent<SpawnManager>().enemiesAlive -= 1;

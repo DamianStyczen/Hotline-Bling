@@ -7,9 +7,9 @@ public class DropWeapon : Effect {
 
     public GameObject PickUpPrefab;
     public List<Weapon> weapons = new List<Weapon>();
-	public override void Execute()
+	public override void Execute(GameObject caller)
     {
-        Instantiate(PickUpPrefab);
+        Instantiate(PickUpPrefab, caller.transform.position, Quaternion.identity);
         PickUpPrefab.GetComponent<PickUpController>().droppedWeapon = weapons[UnityEngine.Random.Range(0, weapons.Count)];
     }
 }

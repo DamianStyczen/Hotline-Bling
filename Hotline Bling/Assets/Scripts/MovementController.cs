@@ -68,6 +68,7 @@ public class MovementController : MonoBehaviour {
         {
             Debug.Log("You Died");
             GameObject.Destroy(this.gameObject);
+            GameObject.Find("TextController").GetComponent<TextController>().generateText("Game", "Over", 60);
         }
     }
 
