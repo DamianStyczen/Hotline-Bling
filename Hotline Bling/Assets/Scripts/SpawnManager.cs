@@ -5,55 +5,103 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour {
 
+    enum stages { breakBetweenWaves, startOfWave, spawningEnemies, awaitEndOfWave}
+    [SerializeField] stages stage = stages.awaitEndOfWave;
     public List<Wave> waves;
     public List<Vector3> spawnPoints;
     public GameObject enemy;
     public int enemiesAlive = 0;
 
-    [SerializeField] float midWaveBreak = 5f;
+    [SerializeField] float midWaveBreakTime = 5f;
+    [SerializeField] float startOFWaveBreakTime = 2f;
     [SerializeField] int currentWave = 0;
-
-    bool isSpawning = false;
-    bool breakStarted = false;
-
+    
     int enemiesSpawned = 0;
     float timer = 0f;
 
-
+    
 
 	// Use this for initialization
 	void Start () {
-        generateSpawnPoints();        
+        generateSpawnPoints();     
+        
 	}
 
     // Update is called once per frame
-    void Update () {
-
+    void Update()
+    {
         timer += Time.deltaTime;
 
-        if (!isSpawning)
+        switch (stage)
         {
-            if(enemiesAlive == 0)
-            {
-                if (!breakStarted)
+            case stages.breakBetweenWaves:
+
+                if (timer > midWaveBreakTime)
                 {
-                    breakStarted = true;
-                    timer = 0;
+                    enemiesSpawned = 0;
                     
+                    stage = stages.startOfWave;
+                    timer = 0;
+                    getText(stage);
                 }
-                else
+                break;
+
+            case stages.startOfWave:
+
+                // DO SOME STARTOFWAVE STUFF
+                if (timer > startOFWaveBreakTime)
                 {
-                    if (timer > midWaveBreak) startTheWave();
+                    stage = stages.spawningEnemies;
+                    timer = 0;
                 }
-            }
-        }
+                break;
 
-         if (isSpawning)
+            case stages.spawningEnemies:
+
+                startSpawning();
+                break;
+            case stages.awaitEndOfWave:
+
+                if (enemiesAlive <= 0)
+                {
+                    stage = stages.breakBetweenWaves;
+                    timer = 0;
+                    getText(stage);
+                }
+                break;
+
+            default:
+                Debug.Log("SpawnManager failed to update.");
+                break;
+        }
+    }
+
+    private void getText(stages stage)
+    {
+        switch (stage)
         {
-            startSpawning();
+            case stages.breakBetweenWaves:
+                if (waves[currentWave].endOfWaveText == "")
+                {
+                    GameObject.Find("TextController").GetComponent<TextController>().generateText("", "Good job");
+                }
+                else GameObject.Find("TextController").GetComponent<TextController>().generateText("", waves[currentWave-1].endOfWaveText, 60, 40);
+                break;
+            case stages.startOfWave:
+                if(waves[currentWave].startOfWaveText == "")
+                {
+                    GameObject.Find("TextController").GetComponent<TextController>().generateText("Wave " + (currentWave + 1));
+                }
+                else GameObject.Find("TextController").GetComponent<TextController>().generateText("Wave " + (currentWave + 1), waves[currentWave].startOfWaveText, 60, 40);
+                break;
+            case stages.spawningEnemies:
+                break;
+            case stages.awaitEndOfWave:                
+                break;
+            default:
+                break;
         }
-
-	}
+    }
 
     void startSpawning()
     {
@@ -69,14 +117,12 @@ public class SpawnManager : MonoBehaviour {
         }
         else if (enemiesSpawned >= waves[currentWave].enemies)
         {
-            isSpawning = false;
-            breakStarted = false;
+            stage = stages.awaitEndOfWave;
+            timer = 0;
             currentWave += 1;
             if (currentWave >= waves.Count) currentWave = waves.Count - 1;
         }
-    }
-
-    
+    }    
 
     private void generateSpawnPoints()
     {
@@ -100,15 +146,7 @@ public class SpawnManager : MonoBehaviour {
         spawnPoints.Add(new Vector3(10, 3, 0));
         spawnPoints.Add(new Vector3(10, 0, 0));
         spawnPoints.Add(new Vector3(10, -3, 0));
-    }
-
-    void startTheWave()
-    {
-        isSpawning = true;
-        timer = 0f;
-        enemiesSpawned = 0;
-
-    }
+    }    
 
     void spawnAnEnemy()
     {

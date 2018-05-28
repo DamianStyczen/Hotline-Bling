@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PickUpController : MonoBehaviour {
 
-    [SerializeField] List<Weapon> items = new List<Weapon>();
+    public Weapon droppedWeapon;
 
 	// Use this for initialization
 	void Start () {
@@ -22,7 +22,8 @@ public class PickUpController : MonoBehaviour {
         {
             if(collision.gameObject.tag == "Player")
             {
-                collision.gameObject.GetComponent<AttackController>().PickUpWeapon(items[0]);
+                Debug.Log("Weapon PICKED UP");
+                collision.gameObject.GetComponent<AttackController>().PickUpWeapon(droppedWeapon);
                 GameObject.Destroy(gameObject);
             }
         }

@@ -57,11 +57,14 @@ public class AttackController : MonoBehaviour {
         if(timer > weapon.fireCooldown)
         {
             weapon.Shoot(weaponModel);
-            //shoot();
             weaponAmmo -= 1;
-            if(weaponAmmo == 0)
+            GameObject.Find("UIWeaponController").GetComponent<UIWeaponController>().ammoChange(weaponAmmo);
+
+            if (weaponAmmo == 0)
             {
-                Debug.Log("Weapon is empty.");
+
+                GameObject.Find("TextController").GetComponent<TextController>().generateText("empty", 1);
+                GameObject.Find("UIWeaponController").GetComponent<UIWeaponController>().changeWeapon("Melee");
                 weapon = null;
                 weaponModel.SetActive(false);
             }
@@ -85,10 +88,11 @@ public class AttackController : MonoBehaviour {
 
     public void PickUpWeapon(Weapon pickUp)
     {
-        
         weapon = pickUp;
         weaponAmmo = weapon.ammo;
         weaponModel.SetActive(true);
+        GameObject.Find("TextController").GetComponent<TextController>().generateText("Picked up", weapon.name, 40, 40);
+        GameObject.Find("UIWeaponController").GetComponent<UIWeaponController>().changeWeapon(weapon.name, weapon.ammo);
     }
 
     
