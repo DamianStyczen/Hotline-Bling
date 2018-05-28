@@ -66,9 +66,8 @@ public class MovementController : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("You Died");
             GameObject.Destroy(this.gameObject);
-            GameObject.Find("TextController").GetComponent<TextController>().generateText("Game", "Over", 60);
+            GameObject.Find("TextController").GetComponent<TextController>().generateText("Game Over", "R to Restart / Escape to Quit", 60, 30);
         }
     }
 

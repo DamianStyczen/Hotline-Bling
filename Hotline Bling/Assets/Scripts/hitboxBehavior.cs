@@ -8,7 +8,7 @@ public class hitboxBehavior : MonoBehaviour {
     [SerializeField] float lifeTime;
 	// Use this for initialization
 	void Start () {
-        Debug.Log("Attacked!");
+        
         Destroy(this.gameObject, lifeTime);
 	}
 	
