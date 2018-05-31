@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameHandler : MonoBehaviour {
+
+    [SerializeField] GameObject pauseMenu;
 
 	// Use this for initialization
 	void Start () {
@@ -14,11 +15,18 @@ public class GameHandler : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene(0);
+            pauseMenu.GetComponent<PauseMenu>().onRestartButton();
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
+            if (!pauseMenu.activeSelf)
+            {
+                pauseMenu.SetActive(true);
+            }
+            else
+            {
+                pauseMenu.SetActive(false);
+            }
         }
     }
 }

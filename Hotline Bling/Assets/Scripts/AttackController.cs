@@ -37,7 +37,7 @@ public class AttackController : MonoBehaviour {
 
         timer += Time.deltaTime;
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && (Time.timeScale > 0))
         {
             if(weapon == null)
             {

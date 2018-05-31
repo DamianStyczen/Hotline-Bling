@@ -97,6 +97,14 @@ public class TextController : MonoBehaviour {
 
     }
 
+    public void generateText(string text1, string text2, int fontSize1, int fontSize2, float time)
+    {
+        generateText(text1, text2);
+        TopText.GetComponent<Text>().fontSize = fontSize1;
+        BottomText.GetComponent<Text>().fontSize = fontSize2;
+        actualTime = time;
+    }
+
     void DeactiveTexts()
     {
         TopText.GetComponent<Text>().fontSize = defaultFontSize1;
