@@ -85,7 +85,13 @@ public class SpawnManager : MonoBehaviour {
                 {
                     GameObject.Find("TextController").GetComponent<TextController>().generateText("", "Good job");
                 }
-                else GameObject.Find("TextController").GetComponent<TextController>().generateText("", waves[currentWave-1].endOfWaveText, 60, 40);
+                else
+                {
+                    int text = currentWave;
+                    if (text <= 0) text = 1;
+                    GameObject.Find("TextController").GetComponent<TextController>().generateText("", waves[text - 1].endOfWaveText, 60, 40);
+                }
+                
                 break;
             case stages.startOfWave:
                 if(waves[currentWave].startOfWaveText == "")
