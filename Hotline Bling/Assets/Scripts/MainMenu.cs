@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainManu : MonoBehaviour {
+public class MainMenu : MonoBehaviour {
 
-    [SerializeField] GameObject MainMenu;
+    [SerializeField] GameObject MainMenuObject;
     [SerializeField] GameObject AuthorMenu;
     [SerializeField] GameObject HowToMenu;
     [SerializeField] GameObject currentMenu;
+
+    private void Start()
+    {
+        Cursor.visible = true;
+    }
 
     public void onPlayButton()
     {
@@ -22,20 +27,20 @@ public class MainManu : MonoBehaviour {
 
     public void onBackButton()
     {
-        MainMenu.SetActive(true);
+        MainMenuObject.SetActive(true);
         currentMenu.SetActive(false);
 
     }
 
     public void OnAuthorButton()
     {
-        MainMenu.SetActive(false);
+        MainMenuObject.SetActive(false);
         AuthorMenu.SetActive(true);
         currentMenu = AuthorMenu;
     }
     public void onHowToButton()
     {
-        MainMenu.SetActive(false);
+        MainMenuObject.SetActive(false);
         HowToMenu.SetActive(true);
         currentMenu = HowToMenu;
     }
